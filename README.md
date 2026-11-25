@@ -19,6 +19,15 @@
 
 **给别人用**：把 `rime-wubi-setup/` 整个目录拷进 `~/.workbuddy/skills/`，然后对他的 AI 说"帮我装鼠须管/五笔拼音输入法"即可自动安装。详见 [SKILL.md](rime-wubi-setup/SKILL.md) 的分发说明。
 
+### [clash-verge-reality](clash-verge-reality/) — Clash Verge Rev + Xray Reality 自建节点
+
+Mac 上从零搭建稳定抗封锁节点的全流程文档：VPS 选购（HostDare）→ SSH 初始化 → BBR → Xray Reality 服务端配置 → Clash Verge Rev 客户端导入 → 验证排错。约 ¥20/月的成本。
+
+- [README.md](clash-verge-reality/README.md) — Markdown 版，方便修改
+- [PDF 版](clash-verge-reality/ClashVergeRev-XrayReality-Setup.pdf) — 排版成品，方便直接阅读/分享
+
+> 本文是技术操作文档，落地时请结合自身合规边界判断使用场景。文档内所有 IP / UUID / 密钥均为占位符或示例，无真实凭据。
+
 ## 许可证
 
 本项目采用 [MIT License](LICENSE)——可自由使用、修改、商用、分发，只需保留版权声明。
