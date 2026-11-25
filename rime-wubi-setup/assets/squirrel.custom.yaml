@@ -1,0 +1,6 @@
+# 鼠须管皮肤补丁：候选词横排
+# 由 squirrel.yaml 的 style/candidate_list_layout: stacked → linear
+patch:
+  style/candidate_list_layout: linear
+  # 横排时每页候选数量（可选，按需调整）
+  style/candidate_format: '%c %@'

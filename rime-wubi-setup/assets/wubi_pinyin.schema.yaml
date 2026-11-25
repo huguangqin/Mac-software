@@ -1,0 +1,102 @@
+# Rime schema
+# encoding: utf-8
+# 五笔86 主输入 + 全拼混输（标准写法：两个 translator 同吃 abc 段）
+# 五笔编码优先匹配；打不出的字直接用全拼
+
+schema:
+  schema_id: wubi_pinyin
+  name: "五笔拼音"
+  version: "2.1"
+  author:
+    - 王永民 (五笔字型86版)
+    - iDvel (雾凇拼音 rime-ice)
+  description: |
+    五笔86 为主，全拼为辅，同一方案内混输，五笔优先
+
+switches:
+  - name: ascii_mode
+    states: [ 中文, 西文 ]
+  - name: full_shape
+    states: [ 半角, 全角 ]
+  - name: ascii_punct
+    states: [ 。，, ．， ]
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - table_translator@wubi       # ① 五笔优先（table 查码表）
+    - script_translator           # ② 拼音兜底（走 abc 段，script 拼写规则）
+    - table_translator@melt_eng   # ③ 英文混输（中文状态下直接打英文出英文）
+  filters:
+    - simplifier
+    - uniquifier
+
+# ---- 拼音拼写规则（script_translator 用，走 abc 段）----
+speller:
+  alphabet: zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA`
+  initials: zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA
+  delimiter: " '"
+  algebra:
+    - erase/^hm$/
+    - erase/^m$/
+    - erase/^n$/
+    - erase/^ng$/
+    - abbrev/^([a-z]).+$/$1/
+    - abbrev/^([zcs]h).+$/$1/
+    - derive/^([nl])ve$/$1ue/
+    - derive/^([jqxy])u/$1v/
+    - derive/^([nl])ue$/$1ve/
+    - derive/^([jqxy])v/$1u/
+    - derive/([zcs])h(a|e|i|u|ai|ei|an|en|ou|uo|ua|un|ui|uan|uai|uang|ang|eng|ong)$/h$1$2/
+    - derive/([zcs])h([aeiu])$/$1$2h/
+
+# ---- ① 五笔86（命名 translator，走 abc 段）----
+wubi:
+  dictionary: wubi86
+  initial_quality: 2            # 权重高于拼音 → 五笔候选排前
+  enable_sentence: false
+  enable_user_dict: true
+  enable_encoder: false
+
+# ---- ② 拼音（主 translator / script_translator）----
+translator:
+  dictionary: rime_ice
+  initial_quality: 1
+  enable_sentence: true
+  enable_user_dict: true
+  enable_completion: true
+
+# ---- ③ 英文（melt_eng，中文状态下直接打英文）----
+melt_eng:
+  dictionary: melt_eng
+  initial_quality: 1.1         # 略高于拼音，纯英文串时英文排前
+  enable_sentence: false
+  enable_user_dict: false
+  comment_format:
+    - xform/.*//               # 清空提示码
+
+punctuator:
+  import_preset: symbols
+
+key_binder:
+  import_preset: default
+
+recognizer:
+  import_preset: default
+  patterns:
+    punct: '^/([0-9]0?|[A-Za-z]+)$'

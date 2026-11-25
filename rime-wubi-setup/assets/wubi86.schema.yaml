@@ -1,0 +1,61 @@
+# Rime schema: 五笔86 码表编译载体
+# encoding: utf-8
+# 用途：让 Rime 部署时编译出 wubi86.table.bin，供 wubi_pinyin 混输方案引用
+# 去掉了 pinyin_simp 反查依赖（本机无该字典），避免部署报错
+
+schema:
+  schema_id: wubi86
+  name: "五笔86"
+  version: "0.22"
+  author:
+    - 王永民 (五笔字型86版)
+  description: |
+    五笔字型86版码表（供混输方案编译使用）
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ 中文, 西文 ]
+  - name: full_shape
+    states: [ 半角, 全角 ]
+  - name: ascii_punct
+    states: [ 。，, ．， ]
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - table_translator
+
+speller:
+  delimiter: " ;'"
+
+translator:
+  dictionary: wubi86
+  enable_sentence: true
+  enable_user_dict: true
+
+punctuator:
+  import_preset: symbols
+
+key_binder:
+  import_preset: default
+
+recognizer:
+  import_preset: default
+  patterns:
+    punct: '^/([0-9]0?|[A-Za-z]+)$'
