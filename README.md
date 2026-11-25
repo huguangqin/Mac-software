@@ -18,3 +18,15 @@
 所有配置均经真机实测验证。内含配置模板、一键部署脚本、以及十几次踩坑总结出的排错手册。
 
 **给别人用**：把 `rime-wubi-setup/` 整个目录拷进 `~/.workbuddy/skills/`，然后对他的 AI 说"帮我装鼠须管/五笔拼音输入法"即可自动安装。详见 [SKILL.md](rime-wubi-setup/SKILL.md) 的分发说明。
+
+## 许可证
+
+本项目采用 [MIT License](LICENSE)——可自由使用、修改、商用、分发，只需保留版权声明。
+
+## 致谢
+
+本项目的配置文件参考/改编自以下开源项目，版权归各自作者所有：
+
+- [rime-ice（雾凇拼音）](https://github.com/iDvel/rime-ice) — 拼音词库与配置预设
+- [rime-wubi（五笔字型）](https://github.com/rime/rime-wubi) — 五笔86 码表
+- [Squirrel（鼠须管）](https://github.com/rime/squirrel) — macOS 输入引擎

@@ -1,0 +1,30 @@
+# ===== macOS 系统垃圾 =====
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# ===== 编辑器 / IDE =====
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ===== Python 缓存（若脚本以后扩展）=====
+__pycache__/
+*.py[cod]
+
+# ===== Rime 编译产物（体积大、机器相关，不进版本库）=====
+build/
+*.table.bin
+*.userdb/
+user.yaml
+installation.yaml
+
+# ===== 本地敏感/临时文件 =====
+*.local
+*.log
+*.tmp
